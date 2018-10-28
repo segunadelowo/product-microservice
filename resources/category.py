@@ -10,10 +10,10 @@ class Category(Resource):
         type=str,
         required=True,
         help="Value required."
-    ) 
+    )  
 
-    def get(self, name):
-        category = CategoryModel.find_by_name(name)
+    def get(self, category_id):
+        category = CategoryModel.find_by_uuid(category_id)
         if category:
             return category.json()
         return {'message':'category not found'}, 404
@@ -31,12 +31,31 @@ class Category(Resource):
 
         return category.json(), 201
 
-    def delete (self, name):
-        category = CategoryModel.find_by_name(name)
+    def delete (self, category_id):
+        category = CategoryModel.find_by_uuid(category_id)
         if category:
-            category.delete_from_db()
-        
-        return {'message','category deleted'}
+            category.delete_from_db()        
+        return {'message':'category deleted'}
+
+
+    def put(self, category_id):
+        data = Category.parser.parse_args()
+        category = CategoryModel.find_by_uuid(category_id)
+
+        if category:
+            category.name = data['name']
+            category.save_entity()
+
+           #try:
+           #    category.name = data['name']
+           #    category.save_to_db()
+           #except:
+               #return {"message":"An error occurred updating the category."},500
+        return category.json()
+
+
+
+
 
 class CategoryList(Resource):
     def get(self):

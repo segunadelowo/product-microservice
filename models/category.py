@@ -4,7 +4,7 @@ from db import db
 
 class CategoryModel(db.Model):
     __tablename__ = 'categories'
-
+ 
     id = db.Column(db.Integer, primary_key=True)
     category_uuid = db.Column(db.String(80))
     name = db.Column(db.String(80))
@@ -18,6 +18,10 @@ class CategoryModel(db.Model):
     
     def save_entity(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
         db.session.commit()
 
     @classmethod

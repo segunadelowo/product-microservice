@@ -21,7 +21,7 @@ from resources.category import Category, CategoryList
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #can also connect to postgress, oracle, mysql
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-app.secret_key = '1111'
+app.secret_key = '1111' 
 api = Api(app)
 
 @app.before_first_request
@@ -62,9 +62,9 @@ def customized_response_handler(access_token, identity):
 #                   }), error.status_code
 
 # routes
-api.add_resource(CategoryList, '/categories')
-api.add_resource(Category, '/categories')
-api.add_resource(UserRegister,'/register')
+api.add_resource(CategoryList, '/api/v1/categories')
+api.add_resource(Category, '/api/v1/categories/<string:category_id>')
+api.add_resource(UserRegister,'/api/v1/register')
 
 if __name__ == '__main__': # only run on startup, if this file is called by another file dont run code below
     from db import db # this is to prevent circle imports hence import here
