@@ -9,6 +9,7 @@ from security import authenticate, identity as identity_function
 #from resources.item import Item, ItemList
 from resources.user import UserRegister
 from resources.category import Category, CategoryList
+from resources.item import Item, ItemList
 
 #import sentry_sdk
 #from sentry_sdk.integrations.flask import FlaskIntegration
@@ -64,6 +65,11 @@ def customized_response_handler(access_token, identity):
 # routes
 api.add_resource(CategoryList, '/api/v1/categories')
 api.add_resource(Category, '/api/v1/categories/<string:category_id>')
+
+api.add_resource(ItemList, '/api/v1/items')
+#api.add_resource(Item, '/api/v1/items')#
+api.add_resource(Item, '/api/v1/items/<string:item_id>')
+
 api.add_resource(UserRegister,'/api/v1/register')
 
 if __name__ == '__main__': # only run on startup, if this file is called by another file dont run code below
