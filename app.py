@@ -63,11 +63,10 @@ def customized_response_handler(access_token, identity):
 #                   }), error.status_code
 
 # routes
-api.add_resource(CategoryList, '/api/v1/categories')
-api.add_resource(Category, '/api/v1/categories/<string:category_id>')
+api.add_resource(Category, '/api/v1/categories/<string:category_id>') # GET,PUT,DELETE
+api.add_resource(CategoryList, '/api/v1/categories') #GET,POST
 
 api.add_resource(ItemList, '/api/v1/items')
-#api.add_resource(Item, '/api/v1/items')#
 api.add_resource(Item, '/api/v1/items/<string:item_id>')
 
 api.add_resource(UserRegister,'/api/v1/register')

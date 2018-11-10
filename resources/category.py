@@ -18,18 +18,7 @@ class Category(Resource):
             return category.json()
         return {'message':'category not found'}, 404
 
-    def post(self):
-        data = Category.parser.parse_args()
-        if CategoryModel.find_by_name(data['name']):
-            return {'message':"A category with name '{}' already exists.".format(data['name'])},400
-
-        category = CategoryModel(uuid.uuid4().hex, data['name'])
-        try:
-            category.save_entity()
-        except:
-            return {'message':"An error occurred while creating the category."}, 500
-
-        return category.json(), 201
+    
 
     def delete (self, category_id):
         category = CategoryModel.find_by_uuid(category_id)
@@ -58,3 +47,16 @@ class Category(Resource):
 class CategoryList(Resource):
     def get(self):
         return {'categories': [category.json() for category in CategoryModel.query.all()]}
+    
+    def post(self):
+        data = Category.parser.parse_args()
+        if CategoryModel.find_by_name(data['name']):
+            return {'message':"A category with name '{}' already exists.".format(data['name'])},400
+
+        category = CategoryModel(uuid.uuid4().hex, data['name'])
+        try:
+            category.save_entity()
+        except:
+            return {'message':"An error occurred while creating the category."}, 500
+
+        return category.json(), 201

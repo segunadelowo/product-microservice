@@ -50,20 +50,7 @@ class Item(Resource):
             return item.json()
         return {'message':'item not found'}, 404
 
-    def post(self):
-        data = Item.parser.parse_args()
-        if ItemModel.find_by_name(data['name']):
-            return {'message':"A item with name '{}' already exists.".format(data['name'])},400
     
-        item = ItemModel(uuid.uuid4().hex, data['category_id'],data['supplier_id'],data['description'],data['price'],data['name'])
-    
-        try:
-            item.save_entity()
-        except:
-            return {'message':"An error occurred while creating the item."}, 500
-
-        return item.json(), 201
-
     def delete (self, item_id):
         item = ItemModel.find_by_uuid(item_id)
         if item:
@@ -95,3 +82,17 @@ class Item(Resource):
 class ItemList(Resource):
     def get(self):
         return {'items': [item.json() for item in ItemModel.query.all()]}
+
+    def post(self):
+        data = Item.parser.parse_args()
+        if ItemModel.find_by_name(data['name']):
+            return {'message':"A item with name '{}' already exists.".format(data['name'])},400
+    
+        item = ItemModel(uuid.uuid4().hex, data['category_id'],data['supplier_id'],data['description'],data['price'],data['name'])
+    
+        try:
+            item.save_entity()
+        except:
+            return {'message':"An error occurred while creating the item."}, 500
+
+        return item.json(), 201
