@@ -10,6 +10,7 @@ from security import authenticate, identity as identity_function
 from resources.user import UserRegister
 from resources.category import Category, CategoryList
 from resources.item import Item, ItemList
+from resources.supplier import Supplier, SupplierList
 
 #import sentry_sdk
 #from sentry_sdk.integrations.flask import FlaskIntegration
@@ -68,6 +69,9 @@ api.add_resource(CategoryList, '/api/v1/categories') #GET,POST
 
 api.add_resource(ItemList, '/api/v1/items')
 api.add_resource(Item, '/api/v1/items/<string:item_id>')
+
+api.add_resource(SupplierList, '/api/v1/suppliers')
+api.add_resource(Supplier, '/api/v1/suppliers/<string:supplier_id>')
 
 api.add_resource(UserRegister,'/api/v1/register')
 
