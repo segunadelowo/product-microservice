@@ -1,5 +1,5 @@
 aniso8601==3.0.2
-certifi==2018.10.15
+certifi==2022.12.7
 Click==7.0
 Flask==1.0.2
 Flask-JWT==0.3.2
